@@ -161,5 +161,22 @@ namespace PascalLexer
             Assert.AreEqual(pascal.Eof,tokenList.Last().Type);
             Assert.Pass();
         }
+        
+        [Test]
+        public void Test10()
+        {
+            const string input = "\'id1 \'#123\' id3\' id4";
+            var inputStream = new AntlrInputStream(input);
+            var lexer = new pascal(inputStream);
+            var tokens = new CommonTokenStream(lexer);
+            tokens.Fill();
+            var tokenList = tokens.GetTokens();
+            Assert.AreEqual(4, tokenList.Count);
+            Assert.AreEqual(pascal.CHARCACTER_STRING, tokenList[0].Type);
+            Assert.AreEqual(pascal.WS, tokenList[1].Type);
+            Assert.AreEqual(pascal.ID, tokenList[2].Type);
+            Assert.AreEqual(pascal.Eof,tokenList.Last().Type);
+            Assert.Pass();
+        }
     }
 }
